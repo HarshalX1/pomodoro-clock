@@ -9,6 +9,11 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import "./newApp.css";
 
+// Accurate_Interval.js
+// Thanks Squeege! For the elegant answer provided to this question:
+// http://stackoverflow.com/questions/8173580/setinterval-timing-slowly-drifts-away-from-staying-accurate
+// Github: https://gist.github.com/Squeegy/1d99b3cd81d610ac7351
+// Slightly modified to accept 'normal' interval/timeout format (func, time).
 const dateTime = function (fn, time) {
   var cancel, nextDate, timeout, wrapper;
   nextDate = new Date().getTime() + time;
@@ -27,7 +32,6 @@ const dateTime = function (fn, time) {
   };
 };
 
-// COMPONENTS:
 class CountControl extends React.Component {
   render() {
     return (
