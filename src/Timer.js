@@ -1,19 +1,14 @@
-import React from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import React from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faPlayCircle,
   faPauseCircle,
   faPlusCircle,
   faMinusCircle,
   faRotate,
-} from "@fortawesome/free-solid-svg-icons";
-import "./newApp.css";
+} from '@fortawesome/free-solid-svg-icons';
+import './newApp.css';
 
-// Accurate_Interval.js
-// Thanks Squeege! For the elegant answer provided to this question:
-// http://stackoverflow.com/questions/8173580/setinterval-timing-slowly-drifts-away-from-staying-accurate
-// Github: https://gist.github.com/Squeegy/1d99b3cd81d610ac7351
-// Slightly modified to accept 'normal' interval/timeout format (func, time).
 const dateTime = function (fn, time) {
   var cancel, nextDate, timeout, wrapper;
   nextDate = new Date().getTime() + time;
@@ -70,10 +65,10 @@ class Timer extends React.Component {
       btnState: faPlayCircle,
       brkLength: 5,
       seshLength: 25,
-      timerState: "stopped",
-      timerType: "Session",
+      timerState: 'stopped',
+      timerType: 'Session',
       timer: 1500,
-      intervalID: "",
+      intervalID: '',
     };
     this.setBreakCount = this.setBreakCount.bind(this);
     this.setSessionCount = this.setSessionCount.bind(this);
@@ -89,36 +84,36 @@ class Timer extends React.Component {
   }
   setBreakCount(e) {
     this.lengthControl(
-      "brkLength",
+      'brkLength',
       e.currentTarget.value,
       this.state.brkLength,
-      "Session"
+      'Session'
     );
   }
   setSessionCount(e) {
     this.lengthControl(
-      "seshLength",
+      'seshLength',
       e.currentTarget.value,
       this.state.seshLength,
-      "Break"
+      'Break'
     );
   }
   lengthControl(stateToChange, sign, currentLength, timerType) {
-    if (this.state.timerState === "running") {
+    if (this.state.timerState === 'running') {
       return;
     }
     if (this.state.timerType === timerType) {
-      if (sign === "-" && currentLength !== 1) {
+      if (sign === '-' && currentLength !== 1) {
         this.setState({ [stateToChange]: currentLength - 1 });
-      } else if (sign === "+" && currentLength !== 60) {
+      } else if (sign === '+' && currentLength !== 60) {
         this.setState({ [stateToChange]: currentLength + 1 });
       }
-    } else if (sign === "-" && currentLength !== 1) {
+    } else if (sign === '-' && currentLength !== 1) {
       this.setState({
         [stateToChange]: currentLength - 1,
         timer: currentLength * 60 - 60,
       });
-    } else if (sign === "+" && currentLength !== 60) {
+    } else if (sign === '+' && currentLength !== 60) {
       this.setState({
         [stateToChange]: currentLength + 1,
         timer: currentLength * 60 + 60,
@@ -126,11 +121,11 @@ class Timer extends React.Component {
     }
   }
   timerControl() {
-    if (this.state.timerState === "stopped") {
+    if (this.state.timerState === 'stopped') {
       this.startTimer();
-      this.setState({ timerState: "running", btnState: faPauseCircle });
+      this.setState({ timerState: 'running', btnState: faPauseCircle });
     } else {
-      this.setState({ timerState: "stopped", btnState: faPlayCircle });
+      this.setState({ timerState: 'stopped', btnState: faPlayCircle });
       if (this.state.intervalID) {
         this.state.intervalID.cancel();
       }
@@ -154,12 +149,12 @@ class Timer extends React.Component {
       if (this.state.intervalID) {
         this.state.intervalID.cancel();
       }
-      if (this.state.timerType === "Session") {
+      if (this.state.timerType === 'Session') {
         this.startTimer();
-        this.switchTimer(this.state.brkLength * 60, "Break");
+        this.switchTimer(this.state.brkLength * 60, 'Break');
       } else {
         this.startTimer();
-        this.switchTimer(this.state.seshLength * 60, "Session");
+        this.switchTimer(this.state.seshLength * 60, 'Session');
       }
     }
   }
@@ -178,18 +173,18 @@ class Timer extends React.Component {
   clockify() {
     let minutes = Math.floor(this.state.timer / 60);
     let seconds = this.state.timer - minutes * 60;
-    seconds = seconds < 10 ? "0" + seconds : seconds;
-    minutes = minutes < 10 ? "0" + minutes : minutes;
-    return minutes + ":" + seconds;
+    seconds = seconds < 10 ? '0' + seconds : seconds;
+    minutes = minutes < 10 ? '0' + minutes : minutes;
+    return minutes + ':' + seconds;
   }
   reset() {
     this.setState({
       brkLength: 5,
       seshLength: 25,
-      timerState: "stopped",
-      timerType: "Session",
+      timerState: 'stopped',
+      timerType: 'Session',
       timer: 1500,
-      intervalID: "",
+      intervalID: '',
     });
     if (this.state.intervalID) {
       this.state.intervalID.cancel();
